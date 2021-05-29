@@ -17,7 +17,6 @@ namespace TEST_DEV.Models
             {
                 string query = GetConnectionString();                
                 con = new SqlConnection(query);
-                con.Open();
             }
             catch (Exception ex)
             {

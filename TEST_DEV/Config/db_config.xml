@@ -2,7 +2,7 @@
 <config>
   <server>localhost\SQLEXPRESS</server>  
   <port></port>
-  <database>NombreBaseDatos</database>
-  <user>NombreUsuario</user>
-  <pass>Password</pass>  
+  <database>PruebaToka</database>
+  <user>LocalLogin</user>
+  <pass>64klKk**CBgH</pass>  
 </config>
