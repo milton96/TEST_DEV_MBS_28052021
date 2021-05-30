@@ -163,10 +163,20 @@
   <ItemGroup>
     <Content Include="Config\api_config.xml" />
     <Content Include="Config\db_config.xml" />
+    <Content Include="Content\uikit\uikit-rtl.css" />
+    <Content Include="Content\uikit\uikit-rtl.min.css" />
+    <Content Include="Content\uikit\uikit.css" />
+    <Content Include="Content\uikit\uikit.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\axios\axios.js" />
+    <Content Include="Scripts\axios\axios.min.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\uikit\uikit-icons.js" />
+    <Content Include="Scripts\uikit\uikit-icons.min.js" />
+    <Content Include="Scripts\uikit\uikit.js" />
+    <Content Include="Scripts\uikit\uikit.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -185,6 +195,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Scripts\axios\axios.map" />
+    <Content Include="Scripts\axios\axios.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
