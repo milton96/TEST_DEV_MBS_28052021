@@ -20,27 +20,37 @@ namespace TEST_DEV.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Login(LoginRequest login)
         {
-            List<string> errors = new List<string>();
-            foreach(KeyValuePair<string, ModelState> model in ModelState)
+            try
             {
-                foreach(ModelError error in model.Value.Errors)
+                if (login == null) throw new Exception("No se recibieron datos.");
+                //Validate(form);
+                if (!ModelState.IsValid)
                 {
-                    errors.Add(error.ErrorMessage);
+                    List<string> errors = new List<string>();
+                    foreach (KeyValuePair<string, ModelState> model in ModelState)
+                    {
+                        foreach (ModelError error in model.Value.Errors)
+                        {
+                            errors.Add(error.ErrorMessage);
+                        }
+                    }
+                    return Content(HttpStatusCode.Forbidden, errors);
                 }
+
+                Usuario u = await Usuario.Login(login);
+                if (u == null)
+                {
+                    return Unauthorized();
+                }
+
+                string token = await JWTHelper.GenerarToken(u);
+
+                return Ok(new { token });
             }
-
-            if (errors.Any())
-                return Content(HttpStatusCode.Forbidden, errors);
-
-            Usuario u = await Usuario.Login(login);
-            if (u == null)
+            catch (Exception ex)
             {
-                return Unauthorized();
-            }
-
-            string token = await JWTHelper.GenerarToken(u);
-
-            return Ok(new { token });
+                return BadRequest(ex.Message);
+            }            
         }
 
         [HttpPost]
