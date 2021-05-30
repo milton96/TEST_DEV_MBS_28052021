@@ -158,6 +158,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\LoginRequest.cs" />
+    <Compile Include="Requests\PersonaRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\api_config.xml" />
