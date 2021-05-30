@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using TEST_DEV.Handlers;
 
 namespace TEST_DEV
 {
@@ -16,6 +17,8 @@ namespace TEST_DEV
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.MessageHandlers.Add(new ValidarTokenHandler());
         }
     }
 }
