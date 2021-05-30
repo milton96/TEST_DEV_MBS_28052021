@@ -12,13 +12,14 @@ namespace TEST_DEV.Models
 {
     public class Usuario : Conexion
     {
+        public const string USUARIO = "__user__";
         public int ID { get; set; }
         public string Correo { get; set; }
         public string Password { get; set; }
         public bool Activo { get; set; }
 
 
-        public static async Task<Usuario> Login(LoginRequest usuario)
+        public static Usuario Login(LoginRequest usuario)
         {
             Usuario u = null;
             try
@@ -35,7 +36,7 @@ namespace TEST_DEV.Models
                         command.Parameters.AddWithValue("@Correo", usuario.Correo);
                         command.Parameters.AddWithValue("@Activo", true);
                         con.Open();
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
                             var i = new
                             {

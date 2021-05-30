@@ -37,7 +37,8 @@ namespace TEST_DEV.Controllers
                     return Content(HttpStatusCode.Forbidden, errors);
                 }
 
-                Usuario u = await Usuario.Login(login);
+                Usuario u = null;
+                await Task.Run( () => { u = Usuario.Login(login); });
                 if (u == null)
                 {
                     return Unauthorized();
