@@ -11,6 +11,7 @@ namespace TEST_DEV
             bundles.Add(new ScriptBundle("~/bundles/global").Include(
                 "~/Scripts/uikit/uikit.min.js",
                 "~/Scripts/uikit/uikit-icons.min.js",
+                "~/Scripts/tabla.js",
                 "~/Scripts/site.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/axios").Include(

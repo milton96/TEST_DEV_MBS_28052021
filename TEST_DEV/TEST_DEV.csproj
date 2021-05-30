@@ -178,7 +178,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\axios\axios.js" />
     <Content Include="Scripts\axios\axios.min.js" />
+    <Content Include="Scripts\fisicas\fisicas.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\tabla.js" />
     <Content Include="Scripts\uikit\uikit-icons.js" />
     <Content Include="Scripts\uikit\uikit-icons.min.js" />
     <Content Include="Scripts\uikit\uikit.js" />

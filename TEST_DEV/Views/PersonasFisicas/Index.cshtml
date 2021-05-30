@@ -3,4 +3,19 @@
     
 }
 
-<h1>Index personas físicas</h1>
+<div class="uk-container">
+    <h1>Index personas físicas</h1>
+    <div class="uk-overflow-auto">
+        <div>
+            <ul id="tabla-personas-paginacion" class="uk-pagination"></ul>
+        </div>
+        <table id="tabla-personas" class="uk-table uk-table-divider uk-text-nowrap uk-table-hover">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>    
+</div>
+
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/fisicas/fisicas.js"></script>
+}
