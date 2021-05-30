@@ -154,6 +154,9 @@
     <Compile Include="Helpers\JWTHelper.cs" />
     <Compile Include="Helpers\MD5Helper.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />
+    <Compile Include="Helpers\Tabla\Columna.cs" />
+    <Compile Include="Helpers\Tabla\Fila.cs" />
+    <Compile Include="Helpers\Tabla\Tabla.cs" />
     <Compile Include="Models\Conexion.cs" />
     <Compile Include="Models\PersonaFisica.cs" />
     <Compile Include="Models\Usuario.cs" />
