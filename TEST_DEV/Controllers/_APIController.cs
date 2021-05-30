@@ -105,18 +105,63 @@ namespace TEST_DEV.Controllers
 
         [HttpPut]
         [Route("")]
-        public async Task<IHttpActionResult> Actualizar(int id)
+        public async Task<IHttpActionResult> Actualizar(UpdatePersonaRequest req)
         {
-            System.Diagnostics.Debug.WriteLine("login");
-            return Ok(new { token = "token" });
+            try
+            {
+                if (req == null) throw new Exception("No se recibieron datos.");
+
+                List<string> errors = new List<string>();
+                DateTime fechaNacimiento = DateTime.Now;
+                if (!ModelState.IsValid)
+                {
+                    foreach (KeyValuePair<string, ModelState> model in ModelState)
+                    {
+                        foreach (ModelError error in model.Value.Errors)
+                        {
+                            errors.Add(error.ErrorMessage);
+                        }
+                    }
+                }
+                
+                if (!String.IsNullOrEmpty(req.FechaNacimiento) && !DateTime.TryParse(req.FechaNacimiento, out fechaNacimiento))
+                    errors.Add("La fecha de nacimiento no es válida");
+                if (errors.Any())
+                    return Content(HttpStatusCode.BadRequest, errors);
+
+                PersonaFisica persona = PersonaFisica.ObtenerPorId(req.Id);
+                persona.Nombre = String.IsNullOrEmpty(req.Nombre) ? persona.Nombre : req.Nombre;
+                persona.ApellidoPaterno = String.IsNullOrEmpty(req.ApellidoPaterno) ? persona.ApellidoPaterno : req.ApellidoPaterno;
+                persona.ApellidoMaterno = String.IsNullOrEmpty(req.ApellidoMaterno) ? persona.ApellidoMaterno : req.ApellidoMaterno;
+                persona.RFC = String.IsNullOrEmpty(req.RFC) ? persona.RFC : req.RFC;
+                persona.FechaNacimiento = String.IsNullOrEmpty(req.FechaNacimiento) ? persona.FechaNacimiento : fechaNacimiento;
+
+                PersonaFisica res = null;
+                await Task.Run(() => { res = persona.Actualizar(); });
+
+                return Ok(new { response = res, code = HttpStatusCode.OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        [Route("")]
+        [Route("{id}")]
         public async Task<IHttpActionResult> Desactivar(int id)
         {
-            System.Diagnostics.Debug.WriteLine("login");
-            return Ok(new { token = "token" });
+            try
+            {
+                if (id <= 0) throw new Exception("Identificador no válido.");
+                await Task.Run(() => { PersonaFisica.Desactivar(id); });
+
+                return Ok(new { response = "Persona desactivada", code = HttpStatusCode.OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

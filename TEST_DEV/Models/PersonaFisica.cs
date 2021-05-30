@@ -183,5 +183,89 @@ namespace TEST_DEV.Models
 
             return persona;
         }
+
+        public PersonaFisica Actualizar()
+        {
+            PersonaFisica persona = null;
+            try
+            {
+                String query = "[dbo].sp_ActualizarPersonaFisica";
+                using (SqlConnection con = Conectar())
+                {
+                    using (SqlCommand command = new SqlCommand(query, con)
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        CommandTimeout = 60
+                    })
+                    {
+                        command.Parameters.AddWithValue("@IdPersonaFisica", IdPersonaFisica);
+                        command.Parameters.AddWithValue("@Nombre", Nombre);
+                        command.Parameters.AddWithValue("@ApellidoPaterno", ApellidoPaterno);
+                        command.Parameters.AddWithValue("@ApellidoMaterno", ApellidoMaterno);
+                        command.Parameters.AddWithValue("@RFC", RFC);
+                        command.Parameters.AddWithValue("@FechaNacimiento", FechaNacimiento);
+                        command.Parameters.AddWithValue("@UsuarioAgrega", UsuarioAgrega);
+
+                        con.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int id = reader.GetValor<int>(0);
+                                if (id < 0)
+                                {
+                                    throw new Exception(reader.GetValor<string>(1));
+                                }
+                                persona = ObtenerPorId(id);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return persona;
+        }
+
+        public static void Desactivar(int id)
+        {
+            try
+            {
+                String query = "[dbo].sp_EliminarPersonaFisica";
+                using (SqlConnection con = Conectar())
+                {
+                    using (SqlCommand command = new SqlCommand(query, con)
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        CommandTimeout = 60
+                    })
+                    {
+                        command.Parameters.AddWithValue("@IdPersonaFisica", id);
+
+                        con.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int valor = reader.GetValor<int>(0);
+                                if (valor < 0)
+                                {
+                                    throw new Exception(reader.GetValor<string>(1));
+                                }
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

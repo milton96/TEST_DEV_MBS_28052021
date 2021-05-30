@@ -8,7 +8,7 @@ using TEST_DEV.Helpers;
 namespace TEST_DEV.Requests
 {
     public class PersonaRequest
-    {
+    {        
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Nombre { get; set; }
         [Required(ErrorMessage = "El apellido paterno es requerido")]
@@ -19,6 +19,17 @@ namespace TEST_DEV.Requests
         [RegularExpression(RegexHelper.RFCPersonaFisica, ErrorMessage = "El RFC no tiene el formato válido para una persona física")]
         public string RFC { get; set; }
         [Required(ErrorMessage = "La fecha de nacimiento es requerida")]
+        public string FechaNacimiento { get; set; }
+    }
+
+    public class UpdatePersonaRequest
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string ApellidoPaterno { get; set; }
+        public string ApellidoMaterno { get; set; }
+        [RegularExpression(RegexHelper.RFCPersonaFisica, ErrorMessage = "El RFC no tiene el formato válido para una persona física")]
+        public string RFC { get; set; }
         public string FechaNacimiento { get; set; }
     }
 }
