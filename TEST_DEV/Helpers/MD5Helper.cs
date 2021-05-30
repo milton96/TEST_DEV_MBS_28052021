@@ -18,7 +18,7 @@ namespace TEST_DEV.Helpers
             {
                 hash.Append(bytes[i].ToString("x2"));
             }
-            return hash.ToString();
+            return hash.ToString().ToUpper();
         }
 
         public static bool Comprar(string hash, string input)
