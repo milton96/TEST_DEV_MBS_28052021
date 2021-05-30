@@ -14,6 +14,7 @@ namespace TEST_DEV.Helpers.Tabla
         }
         public List<Celda> Celdas { get; set; }        
         public bool Mostrar { get; set; }
+        public object Propiedades { get; set; }
     }
 
     public class Celda

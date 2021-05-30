@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TEST_DEV.Handlers;
 using TEST_DEV.Models;
 using TEST_DEV.Requests;
 
 namespace TEST_DEV.Controllers
 {
+    [SesionTerminada]
     public class HomeController : Controller
     {
         [HttpGet]

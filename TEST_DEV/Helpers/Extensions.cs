@@ -30,5 +30,10 @@ namespace TEST_DEV.Helpers
                 throw new Exception("El usuario no es válido");
             return id;
         }
+
+        public static string ToDateFormat(this DateTime dateTime)
+        {
+            return dateTime.ToString("dd/MM/yyyy");
+        }
     }
 }
