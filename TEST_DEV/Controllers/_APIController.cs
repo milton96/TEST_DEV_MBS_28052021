@@ -70,19 +70,37 @@ namespace TEST_DEV.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public async Task<IHttpActionResult> Obtener()
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Obtener(int id)
         {
-            System.Diagnostics.Debug.WriteLine("login");
-            return Ok(new { token = "token" });
+            try
+            {
+                PersonaFisica res = null;
+                await Task.Run(() => { res = PersonaFisica.ObtenerPorId(id); });
+
+                return Ok(new { response = res, code = HttpStatusCode.OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("")]
-        public async Task<IHttpActionResult> Obtener(int id)
+        public async Task<IHttpActionResult> Obtener()
         {
-            System.Diagnostics.Debug.WriteLine("login");
-            return Ok(new { token = "token" });
+            try
+            {
+                List<PersonaFisica> res = new List<PersonaFisica>();
+                await Task.Run(() => { res = PersonaFisica.ObtenerRegistros(); });
+
+                return Ok(new { response = res, code = HttpStatusCode.OK });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
