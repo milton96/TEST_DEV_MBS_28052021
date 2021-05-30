@@ -21,6 +21,7 @@ namespace TEST_DEV.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(LoginRequest form)
         {
             ViewBag.Title = "Index";

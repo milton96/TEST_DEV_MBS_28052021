@@ -9,6 +9,7 @@
         <div class="uk-margin-xlarge-top">
             @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "uk-form-stacked" }))
             {
+                @Html.AntiForgeryToken();
                 <fieldset class="uk-fieldset">
                     <div>
                         @Html.ValidationMessageFor(e => e.Error, "", new { @class = "uk-form-danger" })
