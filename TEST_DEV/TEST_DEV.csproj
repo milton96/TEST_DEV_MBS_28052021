@@ -143,6 +143,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PersonasFisicasController.cs" />
     <Compile Include="Controllers\_APIController.cs" />
     <Compile Include="Controllers\_LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -197,6 +198,7 @@
     <None Include="packages.config" />
     <Content Include="Scripts\axios\axios.map" />
     <Content Include="Scripts\axios\axios.min.map" />
+    <Content Include="Views\PersonasFisicas\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
