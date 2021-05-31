@@ -22,7 +22,7 @@
         let th = document.createElement("th"),
             span = document.createElement("span");
 
-        span.innerText = "Editar";
+        span.innerText = "Acciones";
         th.appendChild(span);
         tr.appendChild(th);
     }
@@ -34,7 +34,8 @@
      */
     function callbackFila(tr, data) {
         let td = document.createElement("td"),
-            a = document.createElement("a");
+            a = document.createElement("a"),
+            a2 = document.createElement("a");
         a.href = "#";
         a.classList.add("uk-icon-link");
         a.setAttribute("uk-icon", "file-edit");
@@ -42,7 +43,15 @@
             e.preventDefault();
             editar(data.id);            
         });
+        a2.href = "#";
+        a2.classList.add("uk-icon-link");
+        a2.setAttribute("uk-icon", "trash");
+        a2.addEventListener("click", function (e) {
+            e.preventDefault();
+            desactivar(data.id);
+        });
         td.appendChild(a);
+        td.appendChild(a2);
         tr.appendChild(td);
     }
 
@@ -92,7 +101,7 @@
             mostrarNotificacion(res.data.msj, estatus);
 
             if (estatus === "success")
-                setTimeout(function () { location.reload(); }, 3000);
+                setTimeout(function () { location.reload(); }, 1500);
         }).catch(err => {
             console.error(err);
         });
@@ -115,7 +124,25 @@
             mostrarNotificacion(res.data.msj, estatus);
 
             if (estatus === "success")
-                setTimeout(function () { location.reload(); }, 3000);
+                setTimeout(function () { location.reload(); }, 1500);
+        }).catch(err => {
+            console.error(err);
+        });
+    }
+
+    function desactivar(id) {
+        axios({
+            url: '/PersonasFisicas/Desactivar',
+            method: 'delete',
+            data: {
+                id: id
+            }
+        }).then(res => {
+            let estatus = res.data.code === 200 ? "success" : "danger";
+            mostrarNotificacion(res.data.msj, estatus);
+
+            if (estatus === "success")
+                setTimeout(function () { location.reload(); }, 1500);
         }).catch(err => {
             console.error(err);
         });

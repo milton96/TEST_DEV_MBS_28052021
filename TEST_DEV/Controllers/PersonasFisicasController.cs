@@ -173,5 +173,21 @@ namespace TEST_DEV.Controllers
                 return Json(new { msj = ex.Message, code = HttpStatusCode.BadRequest }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpDelete]
+        public JsonResult Desactivar(int id)
+        {
+            try
+            {
+                if (id <= 0) throw new Exception("Identificador no válido.");
+                PersonaFisica.Desactivar(id);
+
+                return Json(new { msj = "Registro desactivado", code = HttpStatusCode.OK }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msj = ex.Message, code = HttpStatusCode.BadRequest }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
