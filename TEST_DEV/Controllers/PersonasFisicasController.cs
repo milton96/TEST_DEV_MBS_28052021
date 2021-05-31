@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TEST_DEV.Handlers;
 using TEST_DEV.Helpers;
 using TEST_DEV.Helpers.Tabla;
 using TEST_DEV.Models;
+using TEST_DEV.Requests;
 
 namespace TEST_DEV.Controllers
 {
@@ -66,6 +68,109 @@ namespace TEST_DEV.Controllers
             catch (Exception ex)
             {
                 return Json(new { ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerPersona(int id)
+        {
+            try
+            {
+                PersonaFisica persona = PersonaFisica.ObtenerPorId(id);
+                return Json(new { persona }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPut]
+        public JsonResult Actualizar(UpdatePersonaRequest req)
+        {
+            try
+            {
+                if (req == null) throw new Exception("No se recibieron datos.");
+
+                List<string> errors = new List<string>();
+                DateTime fechaNacimiento = DateTime.Now;
+                if (!ModelState.IsValid)
+                {
+                    foreach (KeyValuePair<string, ModelState> model in ModelState)
+                    {
+                        foreach (ModelError error in model.Value.Errors)
+                        {
+                            errors.Add(error.ErrorMessage);
+                        }
+                    }
+                }
+
+                if (req.Id <= 0)
+                    errors.Add("El identificador es requerido");
+
+                if (!String.IsNullOrEmpty(req.FechaNacimiento) && !DateTime.TryParse(req.FechaNacimiento, out fechaNacimiento))
+                    errors.Add("La fecha de nacimiento no es válida");
+                if (errors.Any())
+                    return Json(new { msj = errors.ToHtmlList(), code = HttpStatusCode.BadRequest }, JsonRequestBehavior.AllowGet);
+
+                PersonaFisica persona = PersonaFisica.ObtenerPorId(req.Id);
+                persona.Nombre = String.IsNullOrEmpty(req.Nombre) ? persona.Nombre : req.Nombre;
+                persona.ApellidoPaterno = String.IsNullOrEmpty(req.ApellidoPaterno) ? persona.ApellidoPaterno : req.ApellidoPaterno;
+                persona.ApellidoMaterno = String.IsNullOrEmpty(req.ApellidoMaterno) ? persona.ApellidoMaterno : req.ApellidoMaterno;
+                persona.RFC = String.IsNullOrEmpty(req.RFC) ? persona.RFC : req.RFC;
+                persona.FechaNacimiento = String.IsNullOrEmpty(req.FechaNacimiento) ? persona.FechaNacimiento : fechaNacimiento;
+
+                PersonaFisica res = persona.Actualizar();
+
+                return Json(new { msj = "Registro actualizado", code = HttpStatusCode.OK }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msj = ex.Message, code = HttpStatusCode.BadRequest }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Crear(PersonaRequest req)
+        {
+            try
+            {
+                if (req == null) throw new Exception("No se recibieron datos.");
+
+                List<string> errors = new List<string>();
+                DateTime fechaNacimiento = DateTime.Now;
+                if (!ModelState.IsValid)
+                {
+                    foreach (KeyValuePair<string, ModelState> model in ModelState)
+                    {
+                        foreach (ModelError error in model.Value.Errors)
+                        {
+                            errors.Add(error.ErrorMessage);
+                        }
+                    }
+                }
+                if (!DateTime.TryParse(req.FechaNacimiento, out fechaNacimiento))
+                    errors.Add("La fecha de nacimiento no es válida");
+                if (errors.Any())
+                    return Json(new { msj = errors.ToHtmlList(), code = HttpStatusCode.BadRequest }, JsonRequestBehavior.AllowGet);
+
+                int userId = ((Usuario)HttpContext.Session[Usuario.USUARIO]).ID;
+
+                PersonaFisica persona = new PersonaFisica();
+                persona.Nombre = req.Nombre;
+                persona.ApellidoPaterno = req.ApellidoPaterno;
+                persona.ApellidoMaterno = req.ApellidoMaterno;
+                persona.RFC = req.RFC;
+                persona.FechaNacimiento = fechaNacimiento;
+                persona.UsuarioAgrega = userId;
+
+                PersonaFisica res = persona.Guardar();
+
+                return Json(new { msj = "Registro creado", code = HttpStatusCode.OK }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msj = ex.Message, code = HttpStatusCode.BadRequest }, JsonRequestBehavior.AllowGet);
             }
         }
     }

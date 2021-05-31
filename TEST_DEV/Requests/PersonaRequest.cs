@@ -24,6 +24,7 @@ namespace TEST_DEV.Requests
 
     public class UpdatePersonaRequest
     {
+        [Required(ErrorMessage = "El identificador de la persona es requerido")]
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }

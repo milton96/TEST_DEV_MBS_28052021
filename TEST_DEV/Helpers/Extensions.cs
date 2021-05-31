@@ -35,5 +35,10 @@ namespace TEST_DEV.Helpers
         {
             return dateTime.ToString("dd/MM/yyyy");
         }
+
+        public static string ToHtmlList(this List<string> list)
+        {
+            return string.Join("<br />", list);
+        }
     }
 }

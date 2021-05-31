@@ -185,7 +185,9 @@
     <Content Include="Scripts\axios\axios.js" />
     <Content Include="Scripts\axios\axios.min.js" />
     <Content Include="Scripts\fisicas\fisicas.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\reportes\reportes.js" />
+    <Content Include="Scripts\sheetjs\xlsx.full.min.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\tabla.js" />
     <Content Include="Scripts\uikit\uikit-icons.js" />
@@ -214,6 +216,7 @@
     <Content Include="Scripts\axios\axios.min.map" />
     <Content Include="Views\PersonasFisicas\Index.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
+    <Content Include="Scripts\sheetjs\xlsx.full.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

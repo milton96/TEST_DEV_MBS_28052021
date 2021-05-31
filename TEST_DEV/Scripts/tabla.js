@@ -145,4 +145,32 @@
         }.bind(this));
         this.paginacion.appendChild(liNext);
     }
+
+    exportar() {
+        this.coleccion = this.filas.filter(f => f["Mostrar"]);
+
+        // cabecera del archivo
+        let tr = {};
+        this.columnas.forEach(function (el) {
+            tr[el["Posicion"]] = el["Nombre"];
+        });
+
+        let ws = XLSX.utils.json_to_sheet([
+            tr
+        ], { skipHeader: true });
+
+        this.coleccion.forEach(function (el) {
+            tr = {};
+            el["Celdas"].forEach(function (e) {
+                tr[e["Posicion"]] = e["Valor"];
+            });
+            XLSX.utils.sheet_add_json(ws, [
+                tr
+            ], { skipHeader: true, origin: -1 });
+        });
+
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Hoja-" + this.id);
+        XLSX.writeFile(wb, "Libro-" + this.id + ".xlsx");
+    }
 }
