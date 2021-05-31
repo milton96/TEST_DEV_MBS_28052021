@@ -11,6 +11,7 @@
     tbody = null;
     thead = null;
     paginacion = null;
+    btnExportar = null;
     callbackColumnas = function () { };
     callbackFilas = function () { };
 
@@ -24,6 +25,14 @@
         this.thead = this.tabla.querySelector("thead");
         this.tbody = this.tabla.querySelector("tbody");
         this.paginacion = document.getElementById(id + "-paginacion");
+        this.btnExportar = document.getElementById(id + "-exportar");
+
+        if (this.btnExportar) {
+            this.btnExportar.addEventListener("click", function (e) {
+                e.preventDefault();
+                this.exportar();
+            }.bind(this));
+        }
 
         if (typeof data === "string")
             this.obtenerDatos();

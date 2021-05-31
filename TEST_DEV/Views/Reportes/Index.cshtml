@@ -6,9 +6,15 @@
 <div class="uk-container">
     <h1>Reportes</h1>
     <div class="uk-overflow-auto">
-        <div>
-            <ul id="tabla-reportes-paginacion" class="uk-pagination"></ul>
+        <div uk-grid>
+            <div class="uk-flex uk-flex-left">
+                <ul id="tabla-reportes-paginacion" class="uk-pagination"></ul>
+            </div>
+            <div class="uk-flex uk-flex-right">
+                <button id="tabla-reportes-exportar" type="button" class="uk-button uk-button-primary">Exportar</button>
+            </div>
         </div>
+        
         <table id="tabla-reportes" class="uk-table uk-table-divider uk-text-nowrap uk-table-hover">
             <thead></thead>
             <tbody></tbody>
