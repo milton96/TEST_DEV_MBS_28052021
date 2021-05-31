@@ -6,3 +6,7 @@
     min-width: 100%;
     min-height: 100%;
 }*/
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+    background: #20252b;
+}

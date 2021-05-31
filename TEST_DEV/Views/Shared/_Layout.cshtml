@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using TEST_DEV.Models
+@{
+    Usuario u = (Usuario)Session[Usuario.USUARIO];
+}
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -8,10 +12,31 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
+    @if (u != null)
+    {
+        <div class="uk-box-shadow-small uk-light" uk-sticky>
+            <nav class="uk-navbar-container" uk-navbar>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        <li>
+                            <a href="@Url.Action("Index", "PersonasFisicas")">Personas físicas</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Reportes")">Reportes</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("CerrarSesion", "Home")">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    }
+
     <div class="uk-light">
         <div>
             @RenderBody()
-        </div>        
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/axios")
