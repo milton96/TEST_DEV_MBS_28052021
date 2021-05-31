@@ -144,6 +144,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonasFisicasController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\_APIController.cs" />
     <Compile Include="Controllers\_LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +180,7 @@
     <Content Include="Scripts\axios\axios.js" />
     <Content Include="Scripts\axios\axios.min.js" />
     <Content Include="Scripts\fisicas\fisicas.js" />
+    <Content Include="Scripts\reportes\reportes.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\tabla.js" />
     <Content Include="Scripts\uikit\uikit-icons.js" />
@@ -206,6 +208,7 @@
     <Content Include="Scripts\axios\axios.map" />
     <Content Include="Scripts\axios\axios.min.map" />
     <Content Include="Views\PersonasFisicas\Index.cshtml" />
+    <Content Include="Views\Reportes\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
