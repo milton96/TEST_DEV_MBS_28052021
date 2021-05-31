@@ -9,11 +9,11 @@ using TEST_DEV.Models;
 using TEST_DEV.Requests;
 
 namespace TEST_DEV.Controllers
-{
-    [SesionTerminada]
+{    
     public class HomeController : Controller
     {
         [HttpGet]
+        [SesionTerminada]
         public ActionResult Index()
         {
             ViewBag.Title = "Index";
@@ -21,6 +21,7 @@ namespace TEST_DEV.Controllers
         }
 
         [HttpPost]
+        [SesionTerminada]
         [ValidateAntiForgeryToken]
         public ActionResult Index(LoginRequest form)
         {
@@ -40,6 +41,14 @@ namespace TEST_DEV.Controllers
             HttpContext.Session.Add(Usuario.USUARIO, user);
 
             return RedirectToAction("Index", "PersonasFisicas");
+        }
+                
+        [SesionIniciada]
+        public ActionResult CerrarSesion()
+        {
+            Session.Abandon();
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }
