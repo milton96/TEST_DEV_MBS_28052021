@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TEST_DEV.Handlers;
 using TEST_DEV.Helpers;
 using TEST_DEV.Helpers.Tabla;
 using TEST_DEV.Models;
@@ -12,6 +13,7 @@ using TEST_DEV.Responses;
 
 namespace TEST_DEV.Controllers
 {
+    [SesionIniciada]
     public class ReportesController : Controller
     {
         [HttpGet]
